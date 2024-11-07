@@ -1,0 +1,15 @@
+[Unit]
+Description="Immich Machine Learning"
+
+[Service]
+Restart=always
+EnvironmentFile=%h/.local/srv/immich/immich.env
+
+[Container]
+Pod=immich.pod
+ContainerName=immich_machine_learning
+Image=ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION}
+Volume=%h/.local/srv/immich/model-cache:/cache
+
+[Install]
+WantedBy=multi-user.target default.target

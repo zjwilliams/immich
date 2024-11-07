@@ -1,0 +1,14 @@
+[Unit]
+Description="Immich Redis"
+
+[Service]
+Restart=always
+
+[Container]
+Pod=immich.pod
+ContainerName=redis
+Image=docker.io/redis:6.2-alpine
+HealthCmd=redis-cli ping || exit 1
+
+[Install]
+WantedBy=multi-user.target default.target

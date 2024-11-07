@@ -1,0 +1,18 @@
+[Unit]
+Description="Immich Server"
+After=immich-redis.service immich-database.service
+Requires=immich-redis.service immich-database.service
+
+[Service]
+Restart=always
+EnvironmentFile=%h/.local/srv/immich/immich.env
+
+[Container]
+Pod=immich.pod
+ContainerName=immich_server
+Image=ghcr.io/immich-app/immich-server:${IMMICH_VERSION}
+Volume=%h/.local/srv/immich/upload:/usr/src/upload:z
+Volume=/etc/localtime:/etc/localtime:ro
+
+[Install]
+WantedBy=multi-user.target default.target
